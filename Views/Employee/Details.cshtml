@@ -1,0 +1,48 @@
+﻿@model CRUD_MVC.Models.Employee
+
+@{
+    ViewBag.Title = "Employee Detail";
+}
+
+@{
+
+    string z = "https://localhost:44372/Employee/Edit/" + Convert.ToString(@Model.Id);
+}
+
+
+<div>
+    <h4>My Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Designation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Designation)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <span>
+        <a href="/" class="btn btn-primary mr-5">Back to Home</a>
+        <a href=@z class="btn btn-primary ml-5">Edit</a>      
+    </span>
+</p>
