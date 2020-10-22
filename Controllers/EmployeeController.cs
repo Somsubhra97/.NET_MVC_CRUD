@@ -62,15 +62,14 @@ namespace CRUD_MVC.Controllers
 
         // POST: Employee/Edit/5
         [HttpPost]
-        public ActionResult Edit( Employee collection)
+        public void Edit( Employee collection)
         {
             try
             {
               
                 // TODO: Add update logic here
                 _emp.Update(collection);
-
-                return RedirectToAction("Index");
+                
             }
             catch
             {

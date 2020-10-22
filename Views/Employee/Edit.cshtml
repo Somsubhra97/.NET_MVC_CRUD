@@ -1,59 +1,98 @@
 ﻿@model CRUD_MVC.Models.Employee
 
+
 @{
-    ViewBag.Title = "Edit";
+   ViewBag.Title = "Create";
+
 }
 
-
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h2 class="mt-2"><span class="badge badge-secondary "> Edit Employee</span></h2>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-warning " />
-                <a href="/" class="btn btn-primary mr-auto">Cancel</a>
-            </div>
-        </div>
+<form id="form" action="/Employee/Create" method="post">
+    <div class="form-group"> 
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" value="@Model.Name">
     </div>
-}
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" value="@Model.Email">
+    </div>
+    <div class="form-group ">
+        <label for="select">Select</label>
+        <select class="form-control" id="select">
+            @foreach (var i in ViewBag.MyList)
+            {
+            <option value="@i.Designation_Emp">@i.Designation_Emp</option>
+            }
+        </select>
+     </div>        
+     <input id="submit" type="submit" value="Save" class="btn btn-warning" />
+     <a href="/" class="btn btn-primary ">Cancel</a> 
+</form>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+
+<script>  
+
+//USING AJAX call to submit
+  /*  $(document).ready(function(){
+
+        $('#form').submit(function(event) {
+
+         event.preventDefault();
+         dataString = $("#form").serialize();
+
+         $.ajax({
+            type: "post",
+            url: "Employee/Edit",
+            dataType:"json",
+            data: dataString,
+
+            success: function (data) { 
+                const obj = jQuery.parseJSON(data);              
+                window.location.replace('/');                
+            },
+            error: function() {
+                alert(Error occured');
+            }
+        });       
+     });
+  });
+*/
+
+//USING Fetch Api to submit    
+
+    document.querySelector("#form").addEventListener('submit', async (e) => {
+            e.preventDefault();
+            var name = document.querySelector('#name').value;
+            const email = document.querySelector('#email').value;
+            let designation = document.querySelector('#select').value;  
+
+            var id=@Model.Id;
+            var obj = {
+                Id: id,
+                Name: name,
+                Email: email,
+                Designation: designation               
+            };
+            
+            const rawResponse = await fetch("https://localhost:44372/Employee/Edit/id", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(obj)
+            });
+            if (!rawResponse.ok) {
+                console.log('Error occured');
+                return;
+             }
+           
+            window.location.replace('/');
+            
+        })
+           
+   
+</script>
+
