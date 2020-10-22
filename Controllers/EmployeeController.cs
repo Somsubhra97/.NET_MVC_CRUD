@@ -40,15 +40,7 @@ namespace CRUD_MVC.Controllers
         [HttpPost]
         public void Create(Employee model)
         {
-            try
-            {
-                _emp.AddEmployeeData(model);
-               
-            }
-            catch
-            {
-                throw new Exception("Cannot Create");
-            }
+            _emp.AddEmployeeData(model);           
         }
 
         // GET: Employee/Edit/5
@@ -64,34 +56,14 @@ namespace CRUD_MVC.Controllers
         [HttpPost]
         public void Edit( Employee collection)
         {
-            try
-            {
-              
-                // TODO: Add update logic here
-                _emp.Update(collection);
-                
-            }
-            catch
-            {
-                throw new Exception("Cannot Edit");
-            }
+            _emp.Update(collection);
         }
 
-
-        // POST: Employee/Delete/5
-       
+        // POST: Employee/Delete/5       
         public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
-                _emp.DeleteEmployee(id);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                throw new Exception("Cannot Delete");
-            }
+            _emp.DeleteEmployee(id);
+            return RedirectToAction("Index");
         }
     }
 }

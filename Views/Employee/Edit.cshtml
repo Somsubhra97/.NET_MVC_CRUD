@@ -44,7 +44,7 @@
 
          $.ajax({
             type: "post",
-            url: "Employee/Edit",
+            url: "Employee/Edit/id",
             dataType:"json",
             data: dataString,
 
@@ -60,39 +60,47 @@
   });
 */
 
+    /* const res = await axios({
+             method: 'post',
+             url: "https://localhost:44372/Employee/Edit/id",
+             data: obj
+         })
+         window.location.replace('/');*/
+
+
 //USING Fetch Api to submit    
 
     document.querySelector("#form").addEventListener('submit', async (e) => {
-            e.preventDefault();
-            var name = document.querySelector('#name').value;
-            const email = document.querySelector('#email').value;
-            let designation = document.querySelector('#select').value;  
+        e.preventDefault();
+        var name = document.querySelector('#name').value;
+        const email = document.querySelector('#email').value;
+        let designation = document.querySelector('#select').value;
 
-            var id=@Model.Id;
-            var obj = {
-                Id: id,
-                Name: name,
-                Email: email,
-                Designation: designation               
-            };
-            
-            const rawResponse = await fetch("https://localhost:44372/Employee/Edit/id", {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(obj)
-            });
-            if (!rawResponse.ok) {
-                console.log('Error occured');
-                return;
-             }
-           
-            window.location.replace('/');
-            
-        })
-           
+        var id =@Model.Id;
+        var obj = {
+            Id: id,
+            Name: name,
+            Email: email,
+            Designation: designation
+        };
+
+        const rawResponse = await fetch("https://localhost:44372/Employee/Edit/id", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(obj)
+        });
+        if (!rawResponse.ok) {
+            console.log('Error occured');
+            return;
+        }
+        window.location.replace('/');
+
+        
+
+    });      
    
 </script>
 
