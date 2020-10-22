@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CRUD_MVC.Models.Employee>
+@model IEnumerable<CRUD_MVC.Models.Employee>
 
 @{
     ViewBag.Title = "Index";
@@ -6,16 +6,8 @@
 
 <h2 class="mt-1"><span class="badge badge-secondary ">Employees</span></h2>
 
-<div class="row ">
-    <div class="col-sm-6 col-md-6 col-lg-6">
         @foreach (var item in Model)
         {
             @Html.Partial("_Card", item)
         }
-    </div>
-</div>
-
-
-
-
 
