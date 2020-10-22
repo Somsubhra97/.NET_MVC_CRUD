@@ -29,22 +29,48 @@
     
 
 
-    <script>   
 
-        document.querySelector("#form").addEventListener('submit', async (e) => {
+<script>  
 
+//USING AJAX call to submit
+  /*  $(document).ready(function(){
+
+        $('#form').submit(function(event) {
+
+         event.preventDefault();
+         dataString = $("#form").serialize();
+
+         $.ajax({
+            type: "post",
+            url: "Employee/Create",
+            dataType:"json",
+            data: dataString,
+
+            success: function (data) { 
+                const obj = jQuery.parseJSON(data);              
+                window.location.replace('/');                
+            },
+            error: function() {
+                alert(Error occured');
+            }
+        })
+        return false;
+    });
+*/
+
+//USING Fetch Api to submit
+    document.querySelector("#form").addEventListener('submit', async (e) => {
             e.preventDefault();
-            var name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            let designation = document.getElementById('select').value;  
-
+            var name = document.querySelector('#name').value;
+            const email = document.querySelector('#email').value;
+            let designation = document.querySelector('#select').value;  
+            
             var obj = {
                 Name: name,
                 Email: email,
                 Designation: designation
             };
-            console.log(obj);
-
+            
             const rawResponse = await fetch('https://localhost:44372/Employee/Create', {
                 method: 'POST',
                 headers: {
@@ -58,14 +84,11 @@
                 return;
             }
             window.location.replace('/');
-
             
         })
-
-
            
    
-    </script>
+</script>
 
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
